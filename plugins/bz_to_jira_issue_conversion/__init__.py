@@ -13,7 +13,7 @@ class Filter:
         with open(args) as csvfile:
             reader = csv.reader(csvfile, delimiter=',')
             self.issue_map = { row[0].encode(): row[1].encode() for row in reader}
-        self.bz_replace_pattern = re.compile(r"(?i)(\(?(bz|bug|bugzilla)[ /]*#?(\d+)\)?)".encode())
+        self.bz_replace_pattern = re.compile(r"(?i)(\(?(issue|bz|bug|bugzilla|bugzilla bug)[ /]*#?(\d+)\)?)".encode())
 
     def commit_message_filter(self, commit_data):
         for match in self.bz_replace_pattern.findall(commit_data['desc']):
