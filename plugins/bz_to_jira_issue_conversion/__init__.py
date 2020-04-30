@@ -26,7 +26,7 @@ class Filter:
                 raise ValueError(f'invalid match [{match}] in {commit_data["desc"]}')
             try:
                 jira_ticket = self.issue_map[bz_number]
+                commit_data['desc'] = commit_data['desc'].replace(
+                    full_match, f"(JIRA {jira_ticket.decode()}) (Was BZ {bz_number.decode()})".encode())
             except KeyError:
-                raise ValueError(f'Cannot find jira ticket for {match}')
-            commit_data['desc'] = commit_data['desc'].replace(
-                full_match, f"(JIRA {jira_ticket.decode()}) (Was BZ {bz_number.decode()})".encode())
+                pass
